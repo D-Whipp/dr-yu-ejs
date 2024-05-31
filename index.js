@@ -1,9 +1,19 @@
 import express from 'express';
 const app = express();
 const port = 3000;
-let today = new Date().getDay();
-console.log('Today: ', today);
-// let name = 'david';
+const now = new Date();
+let today = now.getDay();
+const daysOfTheWeek = [
+    'Sunday',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+];
+const dayOfWeek = daysOfTheWeek[now.getDay()];
+console.log('Day: ', dayOfWeek);
 
 app.get('/', (req, res) => {
     res.send('<h1>Home Page</h1>');
@@ -18,10 +28,14 @@ app.get('/submit', (req, res) => {
 });
 
 app.get('/other', (req, res) => {
-    if (today >= 5) {
-        res.render('index.ejs', { name: 'Time to relax.' });
+    if (today === 6 || today === 0) {
+        res.render('index.ejs', {
+            name: `Today is ${dayOfWeek}. Time to relax.`,
+        });
     } else {
-        res.render('index.ejs', { name: 'Time to work.' });
+        res.render('index.ejs', {
+            name: `Today is ${dayOfWeek}. Time to work.`,
+        });
     }
 });
 
